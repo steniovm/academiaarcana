@@ -7,16 +7,16 @@ const cors = require("cors");
 const app = express();
 //cria autenticação https
 dotenv.config();
-const local = process.env.ISLOCAL || false;
+//const local = process.env.ISLOCAL || false;
 let server;
-if (local) {
-  const privateKey = fs.readFileSync("../server.key", "utf8");
-  const certificate = fs.readFileSync("../server.crt", "utf8");
-  const credentials = { key: privateKey, cert: certificate };
-  server = require("https").createServer(credentials, app);
-} else {
-  server = require("http").createServer(app);
-}
+//if (local) {
+//  const privateKey = fs.readFileSync("../server.key", "utf8");
+//  const certificate = fs.readFileSync("../server.crt", "utf8");
+//  const credentials = { key: privateKey, cert: certificate };
+//  server = require("https").createServer(credentials, app);
+//} else {
+server = require("http").createServer(app);
+//}
 //cria servidor
 const io = require("socket.io")(server);
 //abre variaveis de ambiente
@@ -220,13 +220,13 @@ io.on("connection", function (socket) {
 //escuta o servidor https
 require("dns").lookup(require("os").hostname(), function (err, add, fam) {
   server.listen(port, () => {
-    if (local) {
-      console.log(`para conversar acesse: https://${add}:${port}`);
-      console.log(`ou: https://localhost:${port}`);
-    } else {
-      console.log(`para conversar acesse: http://${add}:${port}`);
-      console.log(`ou: https://${add}:${port}`);
-    }
+    //if (local) {
+    //  console.log(`para conversar acesse: https://${add}:${port}`);
+    //  console.log(`ou: https://localhost:${port}`);
+    //} else {
+    console.log(`para conversar acesse: http://${add}:${port}`);
+    console.log(`ou: https://${add}:${port}`);
+    //}
     //console.log(err);
     //console.log(fam);
   });
